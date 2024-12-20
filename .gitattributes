@@ -1,0 +1,9 @@
+# Ignore platform-specific native code
+android/** linguist-vendored
+ios/** linguist-vendored
+
+# Ignore build and generated files
+build/** linguist-vendored
+
+# Explicitly set Dart as the primary language
+*.dart linguist-language=Dart
