@@ -27,5 +27,6 @@ class DashBoardState {
         averagePrice: averagePrice ?? this.averagePrice,
         returnsCount: returnsCount ?? this.returnsCount,
         topThreeCompanies: topThreeCompanies ?? this.topThreeCompanies,
+        totalRevenue: totalRevenue ?? this.totalRevenue,
       );
 }
