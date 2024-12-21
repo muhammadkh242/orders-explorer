@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:orders_explorer/orders_management/presentation/widgets/shadowed_card.dart';
+import 'package:orders_explorer/base/presentation/widgets/shadowed_card.dart';
 
 class LinearProgressCard extends StatelessWidget {
   const LinearProgressCard({

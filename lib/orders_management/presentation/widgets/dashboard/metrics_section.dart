@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:orders_explorer/orders_management/presentation/widgets/metrics_card.dart';
+
+import 'metrics_card.dart';
 
 class MetricsSection extends StatelessWidget {
   const MetricsSection({

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:orders_explorer/orders_management/presentation/widgets/company_item.dart';
-import 'package:orders_explorer/orders_management/presentation/widgets/shadowed_card.dart';
+import 'package:orders_explorer/base/presentation/widgets/shadowed_card.dart';
 
-import '../../domain/entities/company.dart';
+import '../../../domain/entities/company.dart';
+import 'company_item.dart';
 
 class TopCompaniesSection extends StatelessWidget {
   const TopCompaniesSection({super.key, required this.companies});

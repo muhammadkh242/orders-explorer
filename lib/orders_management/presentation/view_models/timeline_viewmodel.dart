@@ -10,8 +10,9 @@ class TimelineViewModel extends StateNotifier<BaseState<TimelineState>> {
       : super(
           BaseState(
             data: TimelineState(
-              startDate: DateTime(2021, 10, 31),
-              endDate: DateTime(2021, 10, 31).subtract(const Duration(days: 6)),
+              startDate:
+                  DateTime(2021, 10, 31).subtract(const Duration(days: 6)),
+              endDate: DateTime(2021, 10, 31),
             ),
           ),
         );
@@ -21,7 +22,8 @@ class TimelineViewModel extends StateNotifier<BaseState<TimelineState>> {
     _switchLoading(true);
     final result = await _getOrders();
     if (result.data != null) {
-      _initDailyOrdersMaps(result.data ?? []);
+      _initGroupedByDateOrders(result.data ?? []);
+      // _initDailyOrdersMaps(result.data ?? []);
     } else {
       state = state.copyWith(error: result.error);
     }
@@ -35,31 +37,63 @@ class TimelineViewModel extends StateNotifier<BaseState<TimelineState>> {
     );
   }
 
-  _initDailyOrdersMaps(List<Order> orderList) {
+  _initGroupedByDateOrders(List<Order> orderList) {
     Map<DateTime?, List<Order>> groupedOrders = orderList.groupListsBy(
       (element) => element.registered,
     );
-    final filteredDailyOrders = _getFilteredDailyOrders(groupedOrders);
+
+    Map<DateTime?, List<Order>> filteredGroupedOrders = Map.fromEntries(
+      groupedOrders.entries.where((entry) =>
+          isDateInRange(entry.key, state.data.startDate, state.data.endDate)),
+    );
     state = state.copyWith(
       data: state.data.copyWith(
         allDailyOrders: groupedOrders,
-        filteredDailyOrders: filteredDailyOrders,
+        filteredDailyOrders: filteredGroupedOrders,
       ),
     );
   }
 
-  Map<DateTime?, List<Order>> _getFilteredDailyOrders(
-      Map<DateTime?, List<Order>> groupedOrders) {
+  bool isDateInRange(DateTime? date, DateTime startDate, DateTime endDate) {
+    if (date == null) return false;
+
+    DateTime normalizedDate = DateTime(date.year, date.month, date.day);
+    DateTime normalizedStart = DateTime(
+      startDate.year,
+      startDate.month,
+      startDate.day,
+    );
+    DateTime normalizedEnd = DateTime(
+      endDate.year,
+      endDate.month,
+      endDate.day,
+    );
+
+    return !normalizedDate.isBefore(normalizedStart) &&
+        !normalizedDate.isAfter(normalizedEnd);
+  }
+
+  _filterOrders(DateTime start, DateTime end) {
+    Map<DateTime?, List<Order>> groupedOrders = state.data.allDailyOrders;
+
     Map<DateTime?, List<Order>> filteredGroupedOrders = Map.fromEntries(
-      groupedOrders.entries.where(
-        (entry) =>
-            entry.key != null &&
-            entry.key!.isAfter(
-                state.data.startDate.subtract(const Duration(days: 1))) &&
-            entry.key!
-                .isBefore(state.data.endDate.add(const Duration(days: 1))),
+      groupedOrders.entries
+          .where((entry) => isDateInRange(entry.key, start, end)),
+    );
+    state = state.copyWith(
+      data: state.data.copyWith(
+        filteredDailyOrders: filteredGroupedOrders,
       ),
     );
-    return filteredGroupedOrders;
+  }
+
+  changeDateRange(DateTime startDate, DateTime endDate) {
+    state = state.copyWith(
+      data: state.data.copyWith(
+        startDate: startDate,
+        endDate: endDate,
+      ),
+    );
+    _filterOrders(startDate, endDate);
   }
 }

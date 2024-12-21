@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:orders_explorer/base/domain/entities/base_state.dart';
 import 'package:orders_explorer/base/helpers/context_extension.dart';
 import 'package:orders_explorer/base/helpers/screen_utils.dart';
-import 'package:orders_explorer/orders_management/presentation/widgets/linear_progress_card.dart';
-import 'package:orders_explorer/orders_management/presentation/widgets/metrics_section.dart';
-import 'package:orders_explorer/orders_management/presentation/widgets/top_companies_section.dart';
+import 'package:orders_explorer/orders_management/domain/entities/dashboard_state.dart';
+import 'package:orders_explorer/orders_management/presentation/view_models/dashboard_viewmodel.dart';
+import 'package:orders_explorer/orders_management/presentation/widgets/dashboard/linear_progress_card.dart';
+import 'package:orders_explorer/orders_management/presentation/widgets/dashboard/metrics_section.dart';
+import 'package:orders_explorer/orders_management/presentation/widgets/dashboard/top_companies_section.dart';
 import 'package:orders_explorer/orders_management/utils/di/orders_injection.dart'
     as di;
 
@@ -17,7 +20,12 @@ class DashboardScreen extends StatefulWidget {
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils{
+class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils {
+  final _viewModelProvider =
+      StateNotifierProvider<DashboardViewModel, BaseState<DashBoardState>>(
+    (ref) => DashboardViewModel(ref.watch(di.getOrdersProvider)),
+  );
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +34,7 @@ class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils{
 
   _getData() {
     Future.delayed(Duration.zero, () {
-      context.read(di.dashboardViewModelProvider.notifier).getOrders();
+      context.read(_viewModelProvider.notifier).getOrders();
     });
   }
 
@@ -37,8 +45,8 @@ class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils{
       body: SafeArea(
         child: Consumer(
           builder: (_, ref, __) {
-            final isLoading = ref.watch(di.dashboardViewModelProvider
-                .select((value) => value.isLoading));
+            final isLoading = ref
+                .watch(_viewModelProvider.select((value) => value.isLoading));
             return isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
@@ -58,24 +66,23 @@ class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils{
                           const SizedBox(height: 24),
                           Consumer(builder: (_, ref, __) {
                             final ordersState = ref.watch(
-                              di.dashboardViewModelProvider
-                                  .select((value) => value.data),
+                              _viewModelProvider.select((value) => value.data),
                             );
                             return MetricsSection(
-                              totalOrders: ordersState?.totalOrders,
-                              averagePrice: ordersState?.averagePrice,
-                              returnsCount: ordersState?.returnsCount,
-                              totalRevenue: ordersState?.totalRevenue,
+                              totalOrders: ordersState.totalOrders,
+                              averagePrice: ordersState.averagePrice,
+                              returnsCount: ordersState.returnsCount,
+                              totalRevenue: ordersState.totalRevenue,
                             );
                           }),
                           const SizedBox(height: 24),
                           Consumer(builder: (_, ref, __) {
                             final returnsCount = ref.read(
-                              di.dashboardViewModelProvider
+                              _viewModelProvider
                                   .select((value) => value.data.returnsCount),
                             );
                             final totalOrders = ref.read(
-                              di.dashboardViewModelProvider
+                              _viewModelProvider
                                   .select((value) => value.data.totalOrders),
                             );
 
@@ -88,12 +95,12 @@ class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils{
                           Consumer(
                             builder: (_, ref, __) {
                               final topCompanies = ref.read(
-                                di.dashboardViewModelProvider.select(
+                                _viewModelProvider.select(
                                     (value) => value.data.topThreeCompanies),
                               );
-                              return (topCompanies?.isNotEmpty ?? false)
+                              return (topCompanies.isNotEmpty)
                                   ? TopCompaniesSection(
-                                      companies: topCompanies ?? [],
+                                      companies: topCompanies,
                                     )
                                   : const SizedBox.shrink();
                             },

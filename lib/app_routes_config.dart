@@ -4,6 +4,7 @@ import 'package:orders_explorer/base/presentation/base_scaffold.dart';
 import 'package:orders_explorer/orders_management/presentation/screens/dashboard_screen.dart';
 import 'package:orders_explorer/orders_management/presentation/screens/timeline_screen.dart';
 import 'package:orders_explorer/orders_management/presentation/view_models/dashboard_viewmodel.dart';
+import 'package:orders_explorer/orders_management/presentation/view_models/timeline_viewmodel.dart';
 import 'package:orders_explorer/orders_management/utils/di/orders_injection.dart'
     as di;
 
@@ -17,14 +18,8 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: DashboardScreen.routeName,
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: ProviderScope(
-              overrides: [
-                di.dashboardViewModelProvider.overrideWith((ref) =>
-                    DashboardViewModel(ref.watch(di.getOrdersProvider))),
-              ],
-              child: const DashboardScreen(),
-            ),
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: DashboardScreen(),
           ),
         ),
         GoRoute(
