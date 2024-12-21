@@ -49,7 +49,7 @@ class DashboardViewModel extends StateNotifier<BaseState<DashBoardState>> {
     final topCompanies =
         _getTopThreeCompanies(_getTotalOrderPricesByCompany(ordersList));
     state = state.copyWith(
-      data: state.data?.copyWith(
+      data: state.data.copyWith(
         totalOrders: totalOrders,
         totalRevenue: totalPrice,
         returnsCount: returnsCount,

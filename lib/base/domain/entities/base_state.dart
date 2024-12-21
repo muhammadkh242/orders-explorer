@@ -1,12 +1,12 @@
 import '../../data/models/api_error.dart';
 
 class BaseState<T> {
-  T? data;
+  T data;
   bool isLoading;
   ApiError? error;
 
   BaseState({
-    this.data,
+    required this.data,
     this.isLoading = false,
     this.error,
   });

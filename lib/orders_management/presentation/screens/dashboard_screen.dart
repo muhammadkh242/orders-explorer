@@ -11,7 +11,7 @@ import 'package:orders_explorer/orders_management/utils/di/orders_injection.dart
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
-  static const String routeName = "/Dashboard";
+  static const String routeName = "/dashboard";
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -72,11 +72,11 @@ class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils{
                           Consumer(builder: (_, ref, __) {
                             final returnsCount = ref.read(
                               di.dashboardViewModelProvider
-                                  .select((value) => value.data?.returnsCount),
+                                  .select((value) => value.data.returnsCount),
                             );
                             final totalOrders = ref.read(
                               di.dashboardViewModelProvider
-                                  .select((value) => value.data?.totalOrders),
+                                  .select((value) => value.data.totalOrders),
                             );
 
                             return LinearProgressCard(
@@ -89,7 +89,7 @@ class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils{
                             builder: (_, ref, __) {
                               final topCompanies = ref.read(
                                 di.dashboardViewModelProvider.select(
-                                    (value) => value.data?.topThreeCompanies),
+                                    (value) => value.data.topThreeCompanies),
                               );
                               return (topCompanies?.isNotEmpty ?? false)
                                   ? TopCompaniesSection(
