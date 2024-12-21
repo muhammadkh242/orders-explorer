@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:orders_explorer/base/helpers/context_extension.dart';
+import 'package:orders_explorer/base/helpers/screen_utils.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/linear_progress_card.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/metrics_section.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/top_companies_section.dart';
@@ -16,7 +17,7 @@ class DashboardScreen extends StatefulWidget {
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils{
   @override
   void initState() {
     super.initState();

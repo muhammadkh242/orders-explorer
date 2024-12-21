@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:orders_explorer/base/domain/entities/main_tab.dart';
-import 'package:responsive_framework/responsive_framework.dart';
+import 'package:orders_explorer/base/helpers/screen_utils.dart';
+import 'package:orders_explorer/base/helpers/widget_modifier.dart';
 
 class BaseScaffold extends StatefulWidget {
   const BaseScaffold({super.key, required this.child});
@@ -14,7 +15,7 @@ class BaseScaffold extends StatefulWidget {
 }
 
 class _BaseScaffoldState extends State<BaseScaffold>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, ScreenUtils {
   late TabController controller;
 
   @override
@@ -28,8 +29,7 @@ class _BaseScaffoldState extends State<BaseScaffold>
 
   @override
   Widget build(BuildContext context) {
-    final showBottomBar =
-        !kIsWeb && ResponsiveBreakpoints.of(context).smallerThan(TABLET);
+    final showBottomBar = !kIsWeb && isMobile(context);
     if (showBottomBar) {
       return Scaffold(
         body: widget.child,
@@ -47,7 +47,7 @@ class _BaseScaffoldState extends State<BaseScaffold>
     } else {
       return Scaffold(
         appBar: TabBar(
-          onTap: onDestinationChange,
+            onTap: onDestinationChange,
             controller: controller,
             tabs: MainTab.values
                 .map(
@@ -57,7 +57,10 @@ class _BaseScaffoldState extends State<BaseScaffold>
                   ),
                 )
                 .toList()),
-        body: widget.child,
+        body: widget.child
+            .cornerRadius(BorderRadiusDirectional.circular(16))
+            .paddingHorizontal(MediaQuery.of(context).size.width * 0.15)
+            .paddingVertical(24),
       );
     }
   }
