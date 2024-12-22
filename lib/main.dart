@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
       routerConfig: router,
       builder: (context, child) => ResponsiveBreakpoints.builder(
         breakpoints: [
-          const Breakpoint(start: 0, end: 450, name: MOBILE),
-          const Breakpoint(start: 451, end: 800, name: TABLET),
-          const Breakpoint(start: 801, end: 1920, name: DESKTOP),
-          const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+          const Breakpoint(start: 0, end: 640, name: MOBILE),
+          const Breakpoint(start: 641, end: 1024, name: TABLET),
+          const Breakpoint(start: 1025, end: 1440, name: DESKTOP),
+          const Breakpoint(start: 1441, end: 2560, name: '4K'),
         ],
         child: child!,
       ),

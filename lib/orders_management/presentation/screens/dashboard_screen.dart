@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:orders_explorer/base/domain/entities/base_state.dart';
 import 'package:orders_explorer/base/helpers/context_extension.dart';
-import 'package:orders_explorer/base/helpers/screen_utils.dart';
+import 'package:orders_explorer/base/helpers/responsive_content_wrapper.dart';
 import 'package:orders_explorer/orders_management/domain/entities/dashboard_state.dart';
 import 'package:orders_explorer/orders_management/presentation/view_models/dashboard_viewmodel.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/dashboard/linear_progress_card.dart';
@@ -20,7 +20,7 @@ class DashboardScreen extends StatefulWidget {
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils {
+class _DashboardScreenState extends State<DashboardScreen> {
   final _viewModelProvider =
       StateNotifierProvider<DashboardViewModel, BaseState<DashBoardState>>(
     (ref) => DashboardViewModel(ref.watch(di.getOrdersProvider)),
@@ -41,17 +41,15 @@ class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F9FC),
       body: SafeArea(
         child: Consumer(
           builder: (_, ref, __) {
             final isLoading = ref
                 .watch(_viewModelProvider.select((value) => value.isLoading));
-            return isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
+            return ResponsiveContentWrapper(
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -85,7 +83,6 @@ class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils {
                               _viewModelProvider
                                   .select((value) => value.data.totalOrders),
                             );
-
                             return LinearProgressCard(
                               returnsCount: returnsCount,
                               totalOrders: totalOrders,
@@ -108,7 +105,7 @@ class _DashboardScreenState extends State<DashboardScreen> with ScreenUtils {
                         ],
                       ),
                     ),
-                  );
+            );
           },
         ),
       ),

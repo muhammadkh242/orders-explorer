@@ -21,12 +21,44 @@ class MetricsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
+        MetricsCard(
+          icon: Icons.shopping_bag_outlined,
+          value: totalOrders ?? 0.0,
+          title: 'Total Orders',
+          color: const Color(0xFF635BFF),
+        ),
+        const SizedBox(height: 16),
+
+        MetricsCard(
+          icon: Icons.assignment_return_outlined,
+          value: returnsCount ?? 0.0,
+          title: 'Returns',
+          color: const Color(0xFFFF4242),
+        ),
+        const SizedBox(height: 16),
+
+        MetricsCard(
+          icon: Icons.attach_money_outlined,
+          value: averagePrice ?? 0.0,
+          title: 'Average Price',
+          color: const Color(0xFF00D924),
+          currencyFormat: true,
+        ),
+        const SizedBox(height: 16),
+
+        MetricsCard(
+          icon: Icons.account_balance_outlined,
+          value: totalRevenue ?? 0.0,
+          title: 'Total Revenue',
+          color: const Color(0xFF0066FF),
+          currencyFormat: true,
+        ),
+/*        Row(
           children: [
             Expanded(
               child: MetricsCard(
                 icon: Icons.shopping_bag_outlined,
-                value: totalOrders.toString(),
+                value: totalOrders ?? 0.0,
                 title: 'Total Orders',
                 color: const Color(0xFF635BFF),
               ),
@@ -35,7 +67,7 @@ class MetricsSection extends StatelessWidget {
             Expanded(
               child: MetricsCard(
                 icon: Icons.assignment_return_outlined,
-                value: returnsCount.toString(),
+                value: returnsCount ?? 0.0,
                 title: 'Returns',
                 color: const Color(0xFFFF4242),
               ),
@@ -48,22 +80,24 @@ class MetricsSection extends StatelessWidget {
             Expanded(
               child: MetricsCard(
                 icon: Icons.attach_money_outlined,
-                value: '\$${averagePrice?.toStringAsFixed(2)}',
+                value: averagePrice ?? 0.0,
                 title: 'Average Price',
                 color: const Color(0xFF00D924),
+                currencyFormat: true,
               ),
             ),
             const SizedBox(width: 16),
             Expanded(
               child: MetricsCard(
                 icon: Icons.account_balance_outlined,
-                value: '\$${totalRevenue?.toStringAsFixed(2)}',
+                value: totalRevenue ?? 0.0,
                 title: 'Total Revenue',
                 color: const Color(0xFF0066FF),
+                currencyFormat: true,
               ),
             ),
           ],
-        ),
+        ),*/
       ],
     );
   }
