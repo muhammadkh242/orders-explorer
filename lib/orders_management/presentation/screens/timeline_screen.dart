@@ -119,7 +119,7 @@ class _TimelineScreenState extends State<TimelineScreen>
                             },
                           ),
                         ],
-                      ).paddingAll(24),
+                      ).paddingAll(12),
                     ),
             );
           },
