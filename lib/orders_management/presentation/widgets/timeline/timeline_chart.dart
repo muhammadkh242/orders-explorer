@@ -13,6 +13,8 @@ class TimeLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     final days = List.generate(
         7,
         (index) => DateTime(
@@ -34,15 +36,15 @@ class TimeLineChart extends StatelessWidget {
           barTouchData: BarTouchData(
             enabled: true,
             touchTooltipData: BarTouchTooltipData(
-              tooltipBgColor: const Color(0xFF1A1F36),
+              tooltipBgColor: colorScheme.onSurface,
               tooltipRoundedRadius: 8,
               getTooltipItem: (group, groupIndex, rod, rodIndex) {
                 final date = days[groupIndex];
                 final ordersForDay = groupedOrders[date] ?? [];
                 return BarTooltipItem(
                   '${DateFormat('MMM dd').format(date)}\n${ordersForDay.length} orders',
-                  const TextStyle(
-                    color: Colors.white,
+                  TextStyle(
+                    color: colorScheme.surface,
                     fontWeight: FontWeight.w500,
                   ),
                 );
@@ -69,8 +71,8 @@ class TimeLineChart extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 8),
                     child: Text(
                       DateFormat('dd').format(date),
-                      style: const TextStyle(
-                        color: Color(0xFF697386),
+                      style: TextStyle(
+                        color: colorScheme.onSurfaceVariant,
                         fontSize: 12,
                       ),
                     ),
@@ -88,8 +90,8 @@ class TimeLineChart extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 4),
                     child: Text(
                       value.toInt().toString(),
-                      style: const TextStyle(
-                        color: Color(0xFF697386),
+                      style: TextStyle(
+                        color: colorScheme.onSurfaceVariant,
                         fontSize: 12,
                       ),
                     ),
@@ -110,7 +112,7 @@ class TimeLineChart extends StatelessWidget {
                 barRods: [
                   BarChartRodData(
                     toY: ordersForDay.length.toDouble(),
-                    color: const Color(0xFF635BFF),
+                    color: colorScheme.primary,
                     width: 16,
                     borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(4),
@@ -118,7 +120,7 @@ class TimeLineChart extends StatelessWidget {
                     backDrawRodData: BackgroundBarChartRodData(
                       show: true,
                       toY: maxOrders,
-                      color: const Color(0xFFE3E8EF),
+                      color: colorScheme.surfaceVariant,
                     ),
                   ),
                 ],

@@ -19,6 +19,8 @@ class MetricsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,7 +37,7 @@ class MetricsSection extends StatelessWidget {
                 icon: Icons.shopping_bag_outlined,
                 value: totalOrders ?? 0.0,
                 title: 'Total Orders',
-                color: const Color(0xFF635BFF),
+                color: colorScheme.primary,
               ),
             ),
             ResponsiveRowColumnItem(
@@ -44,7 +46,7 @@ class MetricsSection extends StatelessWidget {
                 icon: Icons.assignment_return_outlined,
                 value: returnsCount ?? 0.0,
                 title: 'Returns',
-                color: const Color(0xFFFF4242),
+                color: colorScheme.error,
               ),
             ),
           ],
@@ -63,7 +65,7 @@ class MetricsSection extends StatelessWidget {
                 icon: Icons.attach_money_outlined,
                 value: averagePrice ?? 0.0,
                 title: 'Average Price',
-                color: const Color(0xFF00D924),
+                color: colorScheme.tertiary,
                 currencyFormat: true,
               ),
             ),
@@ -73,7 +75,7 @@ class MetricsSection extends StatelessWidget {
                 icon: Icons.account_balance_outlined,
                 value: totalRevenue ?? 0.0,
                 title: 'Total Revenue',
-                color: const Color(0xFF0066FF),
+                color: colorScheme.secondary,
                 currencyFormat: true,
               ),
             ),

@@ -17,21 +17,27 @@ class TimelineDateFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
+        Text(
           'Daily Orders',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1A1F36),
+            color: colorScheme.onSurface,
           ),
         ),
         Row(
           children: [
             IconButton(
-              icon: const Icon(Icons.arrow_back_ios, size: 18),
+              icon: Icon(
+                Icons.arrow_back_ios,
+                size: 18,
+                color: colorScheme.onSurface,
+              ),
               onPressed: () {
                 onDateFilterChanged(
                   startDate
@@ -53,13 +59,19 @@ class TimelineDateFilter extends StatelessWidget {
             ),
             Text(
               '${DateFormat('MMM dd').format(startDate)} - ${DateFormat('MMM dd').format(endDate)}',
-              style: const TextStyle(
-                color: Color(0xFF697386),
+              style: TextStyle(
+                color: colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w500,
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.arrow_forward_ios, size: 18),
+              icon: Icon(
+                Icons.arrow_forward_ios,
+                size: 18,
+                color: endDate.isBefore(currentDate)
+                    ? colorScheme.onSurface
+                    : colorScheme.onSurface.withOpacity(0.38),
+              ),
               onPressed: endDate.isBefore(currentDate)
                   ? () {
                       onDateFilterChanged(

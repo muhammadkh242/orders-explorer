@@ -20,6 +20,8 @@ class MetricsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return ShadowedCard(
       child: Row(
         children: [
@@ -42,8 +44,8 @@ class MetricsCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    color: Color(0xFF1A1F36),
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     letterSpacing: -0.2,
@@ -54,15 +56,15 @@ class MetricsCard extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF7F9FC),
+                    color: colorScheme.surfaceVariant,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     currencyFormat
                         ? '\$ ${NumberFormat('#,##0.00').format(value)}'
                         : NumberFormat('#,###').format(value),
-                    style: const TextStyle(
-                      color: Color(0xFF1A1F36),
+                    style: TextStyle(
+                      color: colorScheme.onSurface,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       letterSpacing: -0.5,

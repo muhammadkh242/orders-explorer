@@ -8,6 +8,8 @@ class CompanyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Row(
       children: [
         Container(
@@ -34,17 +36,17 @@ class CompanyItem extends StatelessWidget {
             children: [
               Text(
                 company.name ?? '',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1A1F36),
+                  color: colorScheme.onSurface,
                 ),
               ),
               Text(
                 '\$${company.ordersTotalPrice?.toStringAsFixed(2)}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
-                  color: Color(0xFF697386),
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
             ],

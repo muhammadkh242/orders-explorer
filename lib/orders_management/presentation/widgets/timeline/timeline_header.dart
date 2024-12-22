@@ -6,11 +6,13 @@ class TimelineHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Text(
       'Today: ${DateFormat('MMM dd, yyyy').format(DateTime(2021, 10, 31))}',
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 16,
-        color: Color(0xFF697386),
+        color: colorScheme.onSurfaceVariant,
       ),
     );
   }

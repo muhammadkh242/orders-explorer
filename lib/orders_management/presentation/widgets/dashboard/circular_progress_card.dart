@@ -13,6 +13,8 @@ class CircularProgressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     double percentage = 0.0;
     if ((totalOrders ?? 0) > 0) {
       percentage = (returnsCount ?? 0) / (totalOrders ?? 1);
@@ -23,12 +25,12 @@ class CircularProgressCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Returns Rate',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1A1F36),
+              color: colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 24),
@@ -41,8 +43,8 @@ class CircularProgressCard extends StatelessWidget {
                   width: 120,
                   child: CircularProgressIndicator(
                     value: percentage,
-                    backgroundColor: const Color(0xFFE3E8EF),
-                    valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF635BFF)),
+                    backgroundColor: colorScheme.surfaceVariant,
+                    valueColor: AlwaysStoppedAnimation<Color>(colorScheme.primary),
                     strokeWidth: 12,
                   ),
                 ),
@@ -51,17 +53,17 @@ class CircularProgressCard extends StatelessWidget {
                   children: [
                     Text(
                       '${(percentage * 100).toStringAsFixed(1)}%',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1A1F36),
+                        color: colorScheme.onSurface,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'return rate',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Color(0xFF697386),
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
@@ -73,9 +75,9 @@ class CircularProgressCard extends StatelessWidget {
           Center(
             child: Text(
               '${returnsCount ?? 0} of ${totalOrders ?? 0} orders',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
-                color: Color(0xFF697386),
+                color: colorScheme.onSurfaceVariant,
               ),
             ),
           ),

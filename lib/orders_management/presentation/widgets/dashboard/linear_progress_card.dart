@@ -13,6 +13,8 @@ class LinearProgressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     double percentage = 0.0;
     if ((totalOrders ?? 0) > 0) {
       percentage = (returnsCount ?? 0) / (totalOrders ?? 1);
@@ -23,12 +25,12 @@ class LinearProgressCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Returns Rate',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1A1F36),
+              color: colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 24),
@@ -36,8 +38,8 @@ class LinearProgressCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             child: LinearProgressIndicator(
               value: percentage,
-              backgroundColor: const Color(0xFFE3E8EF),
-              valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF635BFF)),
+              backgroundColor: colorScheme.surfaceVariant,
+              valueColor: AlwaysStoppedAnimation<Color>(colorScheme.primary),
               minHeight: 8,
             ),
           ),
@@ -47,17 +49,17 @@ class LinearProgressCard extends StatelessWidget {
             children: [
               Text(
                 '${(percentage * 100).toStringAsFixed(1)}% return rate',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF1A1F36),
+                  color: colorScheme.onSurface,
                 ),
               ),
               Text(
                 '${returnsCount ?? 0} of ${totalOrders ?? 0} orders',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
-                  color: Color(0xFF697386),
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
             ],

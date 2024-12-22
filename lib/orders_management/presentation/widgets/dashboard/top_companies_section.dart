@@ -11,16 +11,18 @@ class TopCompaniesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return ShadowedCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Top Companies by Order Value',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1A1F36),
+              color: colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 24),

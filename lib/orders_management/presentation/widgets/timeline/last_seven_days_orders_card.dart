@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../base/presentation/widgets/shadowed_card.dart';
 import '../../../data/models/order.dart';
 
@@ -9,9 +10,12 @@ class LastSevenDaysOrdersCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final totalOrders = groupedOrders.isEmpty
         ? 0
-        : groupedOrders.values.map((orders) => orders.length).reduce((a, b) => a + b);
+        : groupedOrders.values
+            .map((orders) => orders.length)
+            .reduce((a, b) => a + b);
 
     return ShadowedCard(
       child: Padding(
@@ -21,31 +25,31 @@ class LastSevenDaysOrdersCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: const Color(0xFF635BFF).withOpacity(0.1),
+                color: colorScheme.primary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.calendar_view_week,
-                color: Color(0xFF635BFF),
+                color: colorScheme.primary,
               ),
             ),
             const SizedBox(width: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Last 7 Days Orders',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Color(0xFF697386),
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
                 Text(
                   totalOrders.toString(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1A1F36),
+                    color: colorScheme.onSurface,
                   ),
                 ),
               ],
