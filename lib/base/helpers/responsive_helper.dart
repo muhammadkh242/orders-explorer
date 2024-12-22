@@ -3,8 +3,12 @@ import 'package:responsive_framework/responsive_framework.dart';
 
 extension ResponsiveContext on BuildContext {
   bool get isMobile => ResponsiveBreakpoints.of(this).isMobile;
+
   bool get isTablet => ResponsiveBreakpoints.of(this).isTablet;
+
   bool get isDesktop => ResponsiveBreakpoints.of(this).isDesktop;
+
+  bool get isMinimized => MediaQuery.of(this).size.width < 768;
 
   double get horizontalPadding {
     if (isMobile) return 16;
@@ -18,7 +22,6 @@ extension ResponsiveContext on BuildContext {
     return 32; // desktop
   }
 
-  // Content max width constraints
   double get maxContentWidth {
     if (isMobile) return double.infinity;
     if (isTablet) return 680;

@@ -3,8 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:orders_explorer/base/domain/entities/base_state.dart';
 import 'package:orders_explorer/base/helpers/context_extension.dart';
 import 'package:orders_explorer/base/helpers/responsive_content_wrapper.dart';
+import 'package:orders_explorer/base/helpers/responsive_helper.dart';
+import 'package:orders_explorer/base/helpers/widget_modifier.dart';
+import 'package:orders_explorer/base/presentation/widgets/screen_title.dart';
 import 'package:orders_explorer/orders_management/domain/entities/dashboard_state.dart';
 import 'package:orders_explorer/orders_management/presentation/view_models/dashboard_viewmodel.dart';
+import 'package:orders_explorer/orders_management/presentation/widgets/dashboard/circular_progress_card.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/dashboard/linear_progress_card.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/dashboard/metrics_section.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/dashboard/top_companies_section.dart';
@@ -20,7 +24,8 @@ class DashboardScreen extends StatefulWidget {
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> with AutomaticKeepAliveClientMixin{
+class _DashboardScreenState extends State<DashboardScreen>
+    with AutomaticKeepAliveClientMixin {
   final _viewModelProvider =
       StateNotifierProvider<DashboardViewModel, BaseState<DashBoardState>>(
     (ref) => DashboardViewModel(ref.watch(di.getOrdersProvider)),
@@ -54,13 +59,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AutomaticKeepAli
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Dashboard Overview',
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF1A1F36),
-                            ),
+                          const ScreenTitle(
+                            title: 'Dashboard Overview',
                           ),
                           const SizedBox(height: 24),
                           Consumer(builder: (_, ref, __) {
@@ -84,10 +84,14 @@ class _DashboardScreenState extends State<DashboardScreen> with AutomaticKeepAli
                               _viewModelProvider
                                   .select((value) => value.data.totalOrders),
                             );
-                            return LinearProgressCard(
-                              returnsCount: returnsCount,
-                              totalOrders: totalOrders,
-                            );
+                            return context.isMinimized
+                                ? CircularProgressCard(
+                                    returnsCount: returnsCount,
+                                    totalOrders: totalOrders)
+                                : LinearProgressCard(
+                                    returnsCount: returnsCount,
+                                    totalOrders: totalOrders,
+                                  );
                           }),
                           const SizedBox(height: 24),
                           Consumer(
@@ -104,7 +108,7 @@ class _DashboardScreenState extends State<DashboardScreen> with AutomaticKeepAli
                             },
                           ),
                         ],
-                      ),
+                      ).paddingAll(12),
                     ),
             );
           },

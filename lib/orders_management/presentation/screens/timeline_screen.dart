@@ -4,6 +4,7 @@ import 'package:orders_explorer/base/domain/entities/base_state.dart';
 import 'package:orders_explorer/base/helpers/context_extension.dart';
 import 'package:orders_explorer/base/helpers/responsive_content_wrapper.dart';
 import 'package:orders_explorer/base/helpers/widget_modifier.dart';
+import 'package:orders_explorer/base/presentation/widgets/screen_title.dart';
 import 'package:orders_explorer/orders_management/domain/entities/timeline_state.dart';
 import 'package:orders_explorer/orders_management/presentation/view_models/timeline_viewmodel.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/timeline/active_day_card.dart';
@@ -56,6 +57,8 @@ class _TimelineScreenState extends State<TimelineScreen>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          const ScreenTitle(title: 'Orders Timeline'),
+                          const SizedBox(height: 24),
                           const TimelineHeader(),
                           const SizedBox(height: 24),
                           Consumer(builder: (_, ref, __) {

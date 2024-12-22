@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:orders_explorer/base/helpers/responsive_helper.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'metrics_card.dart';
 
 class MetricsSection extends StatelessWidget {
@@ -21,41 +22,15 @@ class MetricsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MetricsCard(
-          icon: Icons.shopping_bag_outlined,
-          value: totalOrders ?? 0.0,
-          title: 'Total Orders',
-          color: const Color(0xFF635BFF),
-        ),
-        const SizedBox(height: 16),
-
-        MetricsCard(
-          icon: Icons.assignment_return_outlined,
-          value: returnsCount ?? 0.0,
-          title: 'Returns',
-          color: const Color(0xFFFF4242),
-        ),
-        const SizedBox(height: 16),
-
-        MetricsCard(
-          icon: Icons.attach_money_outlined,
-          value: averagePrice ?? 0.0,
-          title: 'Average Price',
-          color: const Color(0xFF00D924),
-          currencyFormat: true,
-        ),
-        const SizedBox(height: 16),
-
-        MetricsCard(
-          icon: Icons.account_balance_outlined,
-          value: totalRevenue ?? 0.0,
-          title: 'Total Revenue',
-          color: const Color(0xFF0066FF),
-          currencyFormat: true,
-        ),
-/*        Row(
+        ResponsiveRowColumn(
+          rowSpacing: 16,
+          columnSpacing: 16,
+          layout: context.isMinimized
+              ? ResponsiveRowColumnType.COLUMN
+              : ResponsiveRowColumnType.ROW,
           children: [
-            Expanded(
+            ResponsiveRowColumnItem(
+              rowFlex: 1,
               child: MetricsCard(
                 icon: Icons.shopping_bag_outlined,
                 value: totalOrders ?? 0.0,
@@ -63,8 +38,8 @@ class MetricsSection extends StatelessWidget {
                 color: const Color(0xFF635BFF),
               ),
             ),
-            const SizedBox(width: 16),
-            Expanded(
+            ResponsiveRowColumnItem(
+              rowFlex: 1,
               child: MetricsCard(
                 icon: Icons.assignment_return_outlined,
                 value: returnsCount ?? 0.0,
@@ -75,9 +50,15 @@ class MetricsSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16),
-        Row(
+        ResponsiveRowColumn(
+          rowSpacing: 16,
+          columnSpacing: 16,
+          layout: context.isMinimized
+              ? ResponsiveRowColumnType.COLUMN
+              : ResponsiveRowColumnType.ROW,
           children: [
-            Expanded(
+            ResponsiveRowColumnItem(
+              rowFlex: 1,
               child: MetricsCard(
                 icon: Icons.attach_money_outlined,
                 value: averagePrice ?? 0.0,
@@ -86,8 +67,8 @@ class MetricsSection extends StatelessWidget {
                 currencyFormat: true,
               ),
             ),
-            const SizedBox(width: 16),
-            Expanded(
+            ResponsiveRowColumnItem(
+              rowFlex: 1,
               child: MetricsCard(
                 icon: Icons.account_balance_outlined,
                 value: totalRevenue ?? 0.0,
@@ -97,7 +78,7 @@ class MetricsSection extends StatelessWidget {
               ),
             ),
           ],
-        ),*/
+        ),
       ],
     );
   }
