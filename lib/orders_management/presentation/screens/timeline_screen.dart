@@ -21,7 +21,8 @@ class TimelineScreen extends StatefulWidget {
   State<TimelineScreen> createState() => _TimelineScreenState();
 }
 
-class _TimelineScreenState extends State<TimelineScreen> {
+class _TimelineScreenState extends State<TimelineScreen>
+    with AutomaticKeepAliveClientMixin {
   final _viewModelProvider =
       StateNotifierProvider<TimelineViewModel, BaseState<TimelineState>>(
     (ref) => TimelineViewModel(ref.watch(di.getOrdersProvider)),
@@ -41,6 +42,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SafeArea(
         child: Consumer(
@@ -122,4 +124,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

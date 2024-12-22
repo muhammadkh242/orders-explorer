@@ -20,7 +20,7 @@ class DashboardScreen extends StatefulWidget {
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardScreenState extends State<DashboardScreen> with AutomaticKeepAliveClientMixin{
   final _viewModelProvider =
       StateNotifierProvider<DashboardViewModel, BaseState<DashBoardState>>(
     (ref) => DashboardViewModel(ref.watch(di.getOrdersProvider)),
@@ -40,6 +40,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SafeArea(
         child: Consumer(
@@ -111,4 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
