@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:orders_explorer/base/domain/entities/main_tab.dart';
 import 'package:orders_explorer/base/helpers/screen_utils.dart';
 import 'package:orders_explorer/base/helpers/widget_modifier.dart';
+import 'package:orders_explorer/base/presentation/widgets/app_header.dart';
 
 class BaseScaffold extends StatefulWidget {
   const BaseScaffold({super.key, required this.child});
@@ -46,17 +47,10 @@ class _BaseScaffoldState extends State<BaseScaffold>
       );
     } else {
       return Scaffold(
-        appBar: TabBar(
-            onTap: onDestinationChange,
-            controller: controller,
-            tabs: MainTab.values
-                .map(
-                  (tab) => Tab(
-                    icon: Icon(tab.icon),
-                    text: tab.label,
-                  ),
-                )
-                .toList()),
+        appBar: AppHeader(
+          controller: controller,
+          onTap: onDestinationChange,
+        ),
         body: widget.child
             .cornerRadius(BorderRadiusDirectional.circular(16))
             .paddingHorizontal(MediaQuery.of(context).size.width * 0.15)

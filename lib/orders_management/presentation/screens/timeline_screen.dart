@@ -93,8 +93,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
                                   (value) => value.data.startDate,
                                 ),
                               );
-                              debugPrint(
-                                  "TimeLineChart : ${filteredOrders.length}");
                               return TimeLineChart(
                                 groupedOrders: filteredOrders,
                                 startDate: startDate,

@@ -4,17 +4,24 @@ import 'package:intl/intl.dart';
 import '../../../data/models/order.dart';
 
 class TimeLineChart extends StatelessWidget {
-  const TimeLineChart(
-      {super.key, required this.groupedOrders, required this.startDate});
+  const TimeLineChart({
+    super.key,
+    required this.groupedOrders,
+    required this.startDate
+  });
 
-  final Map<DateTime?, List<Order>> groupedOrders;
+  final Map<DateTime, List<Order>> groupedOrders;
   final DateTime startDate;
 
   @override
   Widget build(BuildContext context) {
     final days = List.generate(
         7,
-            (index) => startDate.add(Duration(days: index))
+            (index) => DateTime(
+          startDate.year,
+          startDate.month,
+          startDate.day + index,
+        )
     );
 
     double maxOrders = 0;
@@ -33,16 +40,9 @@ class TimeLineChart extends StatelessWidget {
             tooltipRoundedRadius: 8,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               final date = days[groupIndex];
-              final matchingOrders = groupedOrders.entries
-                  .firstWhere(
-                    (entry) => entry.key != null &&
-                    entry.key!.day == date.day &&
-                    entry.key!.month == date.month,
-                orElse: () => const MapEntry(null, []),
-              )
-                  .value;
+              final ordersForDay = groupedOrders[date] ?? [];
               return BarTooltipItem(
-                '${DateFormat('MMM dd').format(date)}\n${matchingOrders.length} orders',
+                '${DateFormat('MMM dd').format(date)}\n${ordersForDay.length} orders',
                 const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
@@ -84,7 +84,7 @@ class TimeLineChart extends StatelessWidget {
             sideTitles: SideTitles(
               showTitles: true,
               interval: maxOrders <= 5 ? 1 : 20,
-              reservedSize: 25, // Reduced from 40
+              reservedSize: 25,
               getTitlesWidget: (value, meta) {
                 return Padding(
                   padding: const EdgeInsets.only(right: 4),
@@ -105,20 +105,13 @@ class TimeLineChart extends StatelessWidget {
           7,
               (index) {
             final date = days[index];
-            final matchingOrders = groupedOrders.entries
-                .firstWhere(
-                  (entry) => entry.key != null &&
-                  entry.key!.day == date.day &&
-                  entry.key!.month == date.month,
-              orElse: () => const MapEntry(null, []),
-            )
-                .value;
+            final ordersForDay = groupedOrders[date] ?? [];
 
             return BarChartGroupData(
               x: index,
               barRods: [
                 BarChartRodData(
-                  toY: matchingOrders.length.toDouble(),
+                  toY: ordersForDay.length.toDouble(),
                   color: const Color(0xFF635BFF),
                   width: 16,
                   borderRadius: const BorderRadius.vertical(
