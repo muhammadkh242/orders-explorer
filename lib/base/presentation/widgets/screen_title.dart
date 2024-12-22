@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orders_explorer/base/helpers/responsive_helper.dart';
 import 'package:orders_explorer/base/presentation/widgets/theme_toggle_icon.dart';
 
 class ScreenTitle extends StatelessWidget {
@@ -21,7 +22,7 @@ class ScreenTitle extends StatelessWidget {
             color: colorScheme.onSurface,
           ),
         ),
-        const ThemeToggleIcon(),
+        if (context.isMobile) const ThemeToggleIcon(),
       ],
     );
   }
