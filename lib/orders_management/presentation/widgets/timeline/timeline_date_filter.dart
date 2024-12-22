@@ -39,8 +39,15 @@ class TimelineDateFilter extends StatelessWidget {
                           year: startDate.year,
                           day: startDate.day,
                           month: startDate.month)
-                      .subtract(const Duration(days: 6)),
-                  startDate,
+                      .subtract(const Duration(days: 7)),
+                  startDate
+                      .copyWith(
+                          year: startDate.year,
+                          day: startDate.day,
+                          month: startDate.month)
+                      .subtract(
+                        const Duration(days: 1),
+                      ),
                 );
               },
             ),
@@ -56,14 +63,21 @@ class TimelineDateFilter extends StatelessWidget {
               onPressed: endDate.isBefore(currentDate)
                   ? () {
                       onDateFilterChanged(
-                        endDate,
                         endDate
                             .copyWith(
                                 day: endDate.day,
                                 year: endDate.year,
                                 month: endDate.month)
                             .add(
-                              const Duration(days: 6),
+                              const Duration(days: 1),
+                            ),
+                        endDate
+                            .copyWith(
+                                day: endDate.day,
+                                year: endDate.year,
+                                month: endDate.month)
+                            .add(
+                              const Duration(days: 7),
                             ),
                       );
                     }
