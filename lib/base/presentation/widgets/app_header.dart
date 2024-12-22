@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:orders_explorer/base/helpers/widget_modifier.dart';
+import 'package:orders_explorer/base/presentation/widgets/theme_toggle_icon.dart';
 import '../../domain/entities/main_tab.dart';
 
 class AppHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -28,8 +29,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
               child: SizedBox(
                 width: 160,
                 height: 60,
-                child:
-                    Image.asset("assets/images/logo.png").paddingVertical(8),
+                child: Image.asset("assets/images/logo.png").paddingVertical(8),
               ),
             ).paddingHorizontal(16),
             const Spacer(),
@@ -64,6 +64,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
             const SizedBox(
               width: 160,
               height: 60,
+              child: ThemeToggleIcon(),
             ).paddingHorizontal(16),
           ],
         ),
