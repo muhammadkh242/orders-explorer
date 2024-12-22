@@ -7,7 +7,7 @@ import 'package:orders_explorer/base/helpers/widget_modifier.dart';
 import 'package:orders_explorer/base/presentation/widgets/screen_title.dart';
 import 'package:orders_explorer/orders_management/domain/entities/timeline_state.dart';
 import 'package:orders_explorer/orders_management/presentation/view_models/timeline_viewmodel.dart';
-import 'package:orders_explorer/orders_management/presentation/widgets/timeline/active_day_card.dart';
+import 'package:orders_explorer/orders_management/presentation/widgets/timeline/last_seven_days_orders_card.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/timeline/timeline_chart.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/timeline/timeline_date_filter.dart';
 import 'package:orders_explorer/orders_management/presentation/widgets/timeline/timeline_header.dart';
@@ -114,7 +114,7 @@ class _TimelineScreenState extends State<TimelineScreen>
                                   (value) => value.data.filteredDailyOrders,
                                 ),
                               );
-                              return ActiveDayCard(
+                              return LastSevenDaysOrdersCard(
                                   groupedOrders: filteredOrders);
                             },
                           ),
